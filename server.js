@@ -1,17 +1,16 @@
 const http = require('node:http');
 const url = require('url');
 const fs = require('fs');
-const PORT = 9909;
+const PORT = 3030;
 
-
-
-http.createServer((req, res) => {
+http
+  .createServer((req, res) => {
     res.writeHead(200, 'the response is OK');
-    
-    if(req.url === "/"){
-        fs.readFile(`./index.html`, (err, data) => {
-            res.end(data);
-          });
+
+    if (req.url === '/') {
+      fs.readFile(`./index.html`, (err, data) => {
+        res.end(data);
+      });
     } else if (req.url.includes(`/action`)) {
       fs.readFile(`./routes/action.html`, (err, data) => {
         res.end(data);
@@ -32,10 +31,9 @@ http.createServer((req, res) => {
       fs.readFile('./style/main.css', (err, data) => {
         res.end(data);
       });
-    } 
-    
-    
-    if(!req.url) {
+    }
+
+    if (!req.url) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not Found');
     }
